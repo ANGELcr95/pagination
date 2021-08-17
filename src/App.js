@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import Pokedex from './Pokedex';
+import Login from './Login';
+import Home from './Home';
+import PrivateRoute from './PrivateRoute';
+import AuthProvider from './Auth/AuthProvider';
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+
+} from "react-router-dom"
+import PublicRoute from './PublicRoute';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+   <Router>
+     <Switch>
+     {/* nos sirve para poder dotar a los componenete de un proveedor de contexto especificar quines van a tenerlo*/}
+       <AuthProvider>  
+        <PublicRoute exact path='/login' component={Login}/>
+
+        <PrivateRoute exact path='/pokedex' component={Pokedex}/>
+
+        <Route exact path='/' component={Home}/>
+      </AuthProvider>
+      </Switch>
+   </Router>
+   </div>
   );
 }
 
